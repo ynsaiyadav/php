@@ -22,7 +22,8 @@ pipeline{
 		steps{
 			script {
 				docker.withRegistry( '', 'DockerHub' ) {
-				dockerImage.push("$imagename:latest")
+					dockerImage.push("$BUILD_NUMBER")
+					dockerImage.push('latest')
 				}
 			}
 		}
