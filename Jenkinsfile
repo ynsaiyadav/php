@@ -2,8 +2,7 @@ pipeline{
   agent any
   environment{
 	imagename = "dikshant1994/php"
-    SERVER_CREDS = credentials('dikshant1994')
-	dockerImage = ''
+    	SERVER_CREDS = credentials('dikshant1994')
   }
   stages{
     stage("Cloning Git"){
@@ -15,7 +14,7 @@ pipeline{
     stage('Building image') {
 		steps{
 			script {
-				dockerImage = docker.build imagename
+				docker.build imagename
 			}
 		}
 	}
