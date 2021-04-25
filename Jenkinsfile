@@ -22,7 +22,7 @@ pipeline{
 		steps{
 			script {
 				docker.withRegistry( '', 'DockerHub' ) {
-				docker.push("$imagename:latest")
+				dockerImage.push("$imagename:latest")
 				}
 			}
 		}
