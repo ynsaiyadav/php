@@ -2,7 +2,6 @@ pipeline{
   agent any
   environment{
 	imagename = "dikshant1994/php"
-    SERVER_CREDS = 'dikshant1994'
 	dockerImage = ''
   }
   stages{
@@ -22,7 +21,7 @@ pipeline{
 	stage('Deploy Image') {
 		steps{
 			script {
-				docker.withRegistry( '', SERVER_CREDS ) {
+				docker.withRegistry( '', 'DockerHub' ) {
 				dockerImage.push("$BUILD_NUMBER")
 				dockerImage.push('latest')
 				}
