@@ -27,7 +27,7 @@ pipeline{
 			}
 		}
 	}
-	stage('Remove Unused docker image') {
+	stage('Archive artifacts and remove unused docker image') {
       steps{
         archiveArtifacts artifacts: 'template/template.php', onlyIfSuccessful: true
 		sh "docker rmi $imagename:$BUILD_NUMBER"
