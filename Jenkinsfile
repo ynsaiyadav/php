@@ -33,4 +33,5 @@ pipeline{
 		sh "docker rmi $imagename:$BUILD_NUMBER"
       }
     }
+  }
 }
