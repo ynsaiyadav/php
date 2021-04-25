@@ -35,8 +35,7 @@ pipeline{
 }
   post {
         success {
-            sh 'make' 
-                archiveArtifacts artifacts: '**/target/template.php', onlyIfSuccessful: true
+            archiveArtifacts artifacts: '**/target/template.php', onlyIfSuccessful: true
         }
     }
 }
