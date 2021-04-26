@@ -43,6 +43,7 @@ pipeline{
 			steps{
 				script{
 					sh "docker rmi -f $imagename:$BUILD_NUMBER"
+					sh "docker rmi -f $imagename:latest"
 					sh 'docker stop $(docker ps -a -q)'
 					sh "docker container ls"
 					sh "docker ps"
