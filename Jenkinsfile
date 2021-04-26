@@ -3,7 +3,6 @@ pipeline{
   environment{
 	imagename = "dikshant1994/php"
 	dockerImage = ''
-	containers = ''
   }
 	  stages{
 		stage("Cloning Git"){
@@ -31,21 +30,24 @@ pipeline{
 		}
 		stage('Archive artifacts, pull image and containerize') {
 		  steps{
-			archiveArtifacts artifacts: 'template/template.php', onlyIfSuccessful: true
-			sh "docker pull $imagename:$BUILD_NUMBER"
-			sh "docker container run -d $imagename:$BUILD_NUMBER"
-			sh "docker ps"
-			containers = sh (script: 'docker container ls -q', returnStdout: true).trim()
-			println containers
-			sh "docker stop $containers"
-			sh "docker ps"
+			script{
+				archiveArtifacts artifacts: 'template/template.php', onlyIfSuccessful: true
+				sh "docker pull $imagename:$BUILD_NUMBER"
+				sh "docker container run -d $imagename:$BUILD_NUMBER"
+				sh "docker ps"
+				def containers = sh(script:'docker container ls -q')
+				println containers
+				sh "docker stop $containers"
+				sh "docker ps"
+			}
 		  }
 		}
 		stage('Remove Unused docker image') {
 			steps{
-				
-				sh "docker rmi $imagename:$BUILD_NUMBER"
-				sh "docker rmi $imagename:latest"
+				script{
+					sh "docker rmi $imagename:$BUILD_NUMBER"
+					sh "docker rmi $imagename:latest"
+				}
 			}
 		}
 	}
