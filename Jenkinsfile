@@ -35,7 +35,8 @@ pipeline{
 			sh "docker pull $imagename:$BUILD_NUMBER"
 			sh "docker container run -d $imagename:$BUILD_NUMBER"
 			sh "docker ps"
-			containers=`docker container ls -q`
+			sh "'docker container ls -q' > command"
+			containers=readfile('command').trim()
 			println containers
 			sh "docker stop $containers"
 			sh "docker ps"
