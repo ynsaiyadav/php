@@ -35,7 +35,7 @@ pipeline{
 				sh "docker pull $imagename:$BUILD_NUMBER"
 				sh "docker container run -d $imagename:$BUILD_NUMBER"
 				sh "docker ps"
-				sh "docker stop $(docker ps -a -q)"
+				sh 'docker stop $(docker ps -a -q)'
 				sh "docker ps"
 			}
 		  }
