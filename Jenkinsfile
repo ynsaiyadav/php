@@ -36,7 +36,7 @@ pipeline{
 			sh "docker container run -d $imagename:$BUILD_NUMBER"
 			sh "docker ps"
 			sh "'docker container ls -q' > command"
-			containers=readfile('command').trim()
+			containers = readfile('command').trim()
 			println containers
 			sh "docker stop $containers"
 			sh "docker ps"
@@ -44,6 +44,7 @@ pipeline{
 		}
 		stage('Remove Unused docker image') {
 			steps{
+				
 				sh "docker rmi $imagename:$BUILD_NUMBER"
 				sh "docker rmi $imagename:latest"
 			}
