@@ -33,18 +33,19 @@ pipeline{
 			script{
 				archiveArtifacts artifacts: 'template/template.php', onlyIfSuccessful: true
 				sh "docker pull $imagename:$BUILD_NUMBER"
+				sh "docker images"
 				sh "docker container run -d $imagename:$BUILD_NUMBER"
-				sh "docker ps"
-				sh 'docker stop $(docker ps -a -q)'
-				sh "docker ps"
+				sh "docker container ls"
 			}
 		  }
 		}
 		stage('Remove Unused docker image') {
 			steps{
 				script{
-					sh "docker rmi $imagename:$BUILD_NUMBER"
-					sh "docker rmi $imagename:latest"
+					sh "docker rmi -f $imagename:$BUILD_NUMBER"
+					sh 'docker stop $(docker ps -a -q)'
+					sh "docker container ls"
+					sh "docker ps"
 				}
 			}
 		}
