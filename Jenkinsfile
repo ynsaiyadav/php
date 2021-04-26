@@ -27,10 +27,11 @@ pipeline{
 			}
 		}
 	}
-	stage('Archive artifacts and remove unused docker image') {
+	stage('Archive artifacts, pull image and containerize') {
       steps{
         archiveArtifacts artifacts: 'template/template.php', onlyIfSuccessful: true
-		sh "docker rmi $imagename:$BUILD_NUMBER"
+		sh "docker pull $imagename:$BUILD_NUMBER"
+		sh "docker container run $imagename:$BUILD_NUMBER"
       }
     }
 }
