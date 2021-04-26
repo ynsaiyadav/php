@@ -36,7 +36,7 @@ pipeline{
 				sh "docker container run -d $imagename:$BUILD_NUMBER"
 				sh "docker ps"
 				def containers = $(sh(script:'docker container ls -q'))
-				println containers
+				println $containers
 				sh "docker stop $containers"
 				sh "docker ps"
 			}
