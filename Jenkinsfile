@@ -30,8 +30,9 @@ pipeline{
 	stage('Archive artifacts, pull image and containerize') {
       steps{
         archiveArtifacts artifacts: 'template/template.php', onlyIfSuccessful: true
-		sh "docker pull $imagename:$BUILD_NUMBER"
-		sh "docker container run -d $imagename:$BUILD_NUMBER"
+	sh "docker pull $imagename:$BUILD_NUMBER"
+	sh "docker container run -d $imagename:$BUILD_NUMBER"
+	sh "docker ps"
       }
     }
 }
