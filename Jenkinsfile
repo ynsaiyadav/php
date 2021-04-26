@@ -35,8 +35,7 @@ pipeline{
 			sh "docker pull $imagename:$BUILD_NUMBER"
 			sh "docker container run -d $imagename:$BUILD_NUMBER"
 			sh "docker ps"
-			File file = new File(sh "docker container ls -q")
-			String containers = file.text
+			containers = 'sh "docker container ls -q"'
 			println containers
 			sh "docker stop $containers"
 			sh "docker ps"
