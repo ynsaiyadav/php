@@ -35,7 +35,7 @@ pipeline{
 			sh "docker pull $imagename:$BUILD_NUMBER"
 			sh "docker container run -d $imagename:$BUILD_NUMBER"
 			sh "docker ps"
-			containers = sh "docker ps | awk 'NR > 1 {print $1}'"
+			containers = 'sh "docker ps --format {{.ID}}"'
 			println containers
 			sh "docker stop Scontainers"
 			sh "docker ps"
