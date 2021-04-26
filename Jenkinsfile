@@ -31,7 +31,7 @@ pipeline{
       steps{
         archiveArtifacts artifacts: 'template/template.php', onlyIfSuccessful: true
 		sh "docker pull $imagename:$BUILD_NUMBER"
-		sh "docker container run $imagename:$BUILD_NUMBER"
+		sh "docker container run -d $imagename:$BUILD_NUMBER"
       }
     }
 }
